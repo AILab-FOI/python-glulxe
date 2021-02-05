@@ -1,3 +1,5 @@
+% XSB Prolog - cheese expert system
+
 :- dynamic yes/1, no/1.
 
 start :-
