@@ -17,6 +17,7 @@ def clean( string ):
     return eval( string ).decode()
 
 def filter( cmd ):
+    '''OVERRIDE THIS TO ADD YOUR FILTER'''
     if cmd == 'kuku':
         return 'look'
     return cmd
