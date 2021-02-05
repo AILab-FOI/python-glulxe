@@ -1,0 +1,50 @@
+:- dynamic yes/1, no/1.
+
+start :-
+	root( Node ),
+	ask( Output, Node ),
+	writeln( Output ),
+	halt.
+
+start :-
+	halt.
+	
+
+% First question
+root( node( soft ) ).
+
+% node, yes, no
+node( soft, node( fungus ), node( umami ) ).
+node( fungus, gorgonzola, mozzarella ).
+node( umami, parmesan, gouda ).
+
+ask( Output, Node ) :-
+	Node = node( Question ),
+	node( Question, Yes, No ),
+	( check( Question ) -> ask( Output, Yes ); ask( Output, No ) ).
+
+ask( Output, Node ) :-
+	nonvar( Node ),
+	answer( Node, Output ), !.
+
+ask( Question ) :-
+	question( Question, P ),
+        write( P ), nl,
+        read( Answer ), nl, 
+         ( ( Answer == yes ; Answer == d ) 
+         -> assert( yes( Question )) ; 
+	   assert( no( Question ) ), fail ).
+
+check( S ) :- ( yes( S ) -> true ; ( no( S ) -> fail ; ask( S ) ) ).
+
+question( soft, 'Is the cheese soft?' ).
+question( fungus, 'Does it have some green fungus on it?' ).
+question( umami, 'Does is taste very umami?' ).
+
+answer( gorgonzola, 'It is probably gorgonzola!' ).
+answer( mozzarella, 'Oh, it might be mozzarella...' ).
+answer( parmesan, 'Ahh... parmesan, king of all cheeses!' ).
+answer( gouda, 'I think it is gouda.' ).
+
+
+:- start.
