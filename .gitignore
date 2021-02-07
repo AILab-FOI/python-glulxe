@@ -127,3 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+examples/Environment Generator/test.py
+examples/Environment Generator/REG.tar.xz
