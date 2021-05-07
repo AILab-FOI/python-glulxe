@@ -6,15 +6,20 @@ import sys
 import os
 import tempfile
 
-asc_re = re.compile( r'\\x[0-9a-h\)\[;rml\?HJMKB\(q]+' )
+asc_re = re.compile( rb'\\x[0-9a-h\)\[;rml\?HJMKB\(q]+' )
+newline_re = re.compile( rb'\x1b[^ \n.>]*(?:d|H|J|M|K|B)' )
+extra_re = re.compile( rb'\x1b[^a-zA-Z]*m' )
+extra2_re = re.compile( rb'\x08' )
 
 tmpdir = tempfile._get_default_tempdir()
 tmpfile = os.path.join( tmpdir, next( tempfile._get_candidate_names() ) )
 
 def clean( string ):
-    string = string.replace( r'\r', r'\n' )
-    string = asc_re.sub( r'', string )
-    return eval( string ).decode()
+    string = string.replace( b'\r', b'\n' )
+    string = newline_re.sub( rb' ', string )
+    string = extra_re.sub( rb' ', string )
+    string = extra2_re.sub( rb' ', string )
+    return string.decode()
 
 def filter( cmd ):
     '''OVERRIDE THIS TO ADD YOUR FILTER'''
@@ -22,13 +27,20 @@ def filter( cmd ):
         return 'look'
     return cmd
 
+
+
 def main( gblorb ):
+    print( 'SMH' )
+    print( 0 )
     f = open( tmpfile, 'wb' )
     f.close()
     game = px.spawn( "/bin/bash -c 'glulxe \"%s\" > %s'" % ( gblorb, tmpfile ) )
     game.setecho( False )
+    
     last = 0
     llast = 0
+
+    print( 1 )
 
     while True:
 
@@ -47,7 +59,7 @@ def main( gblorb ):
                 previous = l
                 if l[ 0 ] == '>':
                     continue
-                print( l )
+                yield l 
                 llast = m
             
 
@@ -58,7 +70,7 @@ def main( gblorb ):
     
 
 usage = '''start.py [gblorb file]'''
-        
+
 if __name__ == '__main__':
     if len( sys.argv ) != 2:
         print( usage )
