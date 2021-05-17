@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import sys
 import pexpect as px
-import start
+from glulxe.interface import i7Game
 
 def filter( cmd ):
     if 'ask' in cmd and 'lady' in cmd and 'cheese' in cmd:
@@ -11,8 +11,10 @@ def filter( cmd ):
     return cmd
 
 def main( gblorb ):
-    start.filter = lambda cmd: filter( cmd )
-    start.main( gblorb )
+    game = i7Game( gblorb, interactive=False )
+    game.filter = filter
+    for output in game.run():
+        print( output )
     
 
 if __name__ == '__main__':

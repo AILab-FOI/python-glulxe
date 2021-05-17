@@ -4,7 +4,7 @@ import sys
 from chatterbot import ChatBot
 from chatterbot.trainers import ListTrainer
 
-import start
+from glulxe.interface import i7Game
 
 def train( bot ):
     bot.set_trainer( ListTrainer )
@@ -28,9 +28,11 @@ def main( gblorb ):
     bot = ChatBot( 'DUNGEON_KEEPER', read_only=False, database_uri='sqlite:///DUNGEON.sqlite3' )
     train( bot )
     bot = ChatBot( 'DUNGEON_KEEPER', read_only=True, database_uri='sqlite:///DUNGEON.sqlite3' )
-    start.filter = lambda cmd: str( bot.get_response( cmd ) )
-    print( start.filter( 'get the cheddar' ) )
-    start.main( gblorb )
+    game = i7Game( gblorb, interactive=False )
+    game.filter = lambda cmd: str( bot.get_response( cmd ) )
+    print( game.filter( 'get the cheddar' ) )
+    for output in game.run():
+        print( output )
     
 
 if __name__ == '__main__':

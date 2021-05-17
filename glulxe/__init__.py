@@ -1,0 +1,2 @@
+import glulxe.interface
+
