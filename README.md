@@ -9,15 +9,15 @@ Installation
 
 To install use the installation script:
 
-'''
+```
 sudo python3 setup.py install
-'''
+```
 
 Or, the pip installer:
 
-'''
+```
 sudo pip3 install git+https://github.com/AILab-FOI/python-glulxe
-'''
+```
 
 
 Usage
@@ -25,7 +25,7 @@ Usage
 
 To create an instance of an interactive fiction game you want to control using python-gluxle you have to import the i7Game class. To filter the commands given by the user, you have to override the filter method. Here is a quick example in which an alias for the *look* command is created, i.e. if the user types *kuku* the command *look* will be issued. 
 
-'''
+```python
 #!/usr/bin/env python3
 import sys
 from glulxe.interface import i7Game
@@ -44,12 +44,12 @@ def main( gblorb ):
 
 if __name__ == '__main__':
     main( sys.argv[ 1 ] )
-'''
+```
 
 To run the script you have to provide it with a .gblorb file, i.e.:
 
-'''
+```
 python3 example.py mystory.gblorb
-'''
+```
 
 You can find more examples in the example folder including using an expert system (dungeon_expert.py), a chatbot (dungeon_chatbot.py), autonomous agents with random actions as well as an ontology based environment generator.
