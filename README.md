@@ -36,10 +36,12 @@ def filter( cmd ):
     return cmd
 
 def main( gblorb ):
-    game = i7Game( gblorb, interactive=False )
-    game.filter = filter
-    for output in game.run():
-        print( output )
+    game = i7Game( gblorb, interactive=False, filter=filter )
+    print( game.intro() )
+    cmd = ''
+    while cmd != 'quit':
+        cmd = input( '--> ' )
+        print( game.next( cmd ) )
     
 
 if __name__ == '__main__':
@@ -50,6 +52,27 @@ To run the script you have to provide it with a .gblorb file, i.e.:
 
 ```
 python3 example.py mystory.gblorb
+```
+
+Here is the same example using the built-in interactive mode:
+
+
+```python
+#!/usr/bin/env python3
+import sys
+from glulxe.interface import i7Game
+
+def filter( cmd ):
+    if cmd == 'kuku':
+        return 'look'
+    return cmd
+
+def main( gblorb ):
+    game = i7Game( gblorb, filter=filter )
+    
+
+if __name__ == '__main__':
+    main( sys.argv[ 1 ] )
 ```
 
 You can find more examples in the example folder including using an expert system (dungeon_expert.py), a chatbot (dungeon_chatbot.py), autonomous agents with random actions as well as an ontology based environment generator.

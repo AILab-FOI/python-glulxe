@@ -11,8 +11,7 @@ def filter( cmd ):
     return cmd
 
 def main( gblorb ):
-    game = i7Game( gblorb, interactive=False )
-    game.filter = filter
+    game = i7Game( gblorb, interactive=False, filter=filter )
     for output in game.run():
         print( output )
     
