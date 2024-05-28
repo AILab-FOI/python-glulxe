@@ -76,3 +76,5 @@ if __name__ == '__main__':
 ```
 
 You can find more examples in the example folder including using an expert system (dungeon_expert.py), a chatbot (dungeon_chatbot.py), autonomous agents with random actions as well as an ontology based environment generator.
+
+This work has been supported in full by the Croatian Science Foundation under the project number [IP-2019-04-5824](http://dragon.foi.hr:8888/ohai4games).
